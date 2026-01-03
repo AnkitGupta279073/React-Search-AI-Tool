@@ -16,7 +16,7 @@ console.log(question);
 
     </div>
     <div className='bg-zinc-800 w-1/2 p-1 pr-5 text-white m-auto rounded-4xl border border-zinc-700 flex h-16'>
-    <input type="text" value={question} onChange={(e)=>{setQuestion(e.target.value)}} className='w-full h-full p-3 outline-none' placeholder='Ask me'/>
+    <input type="text" value={question} onChange={(e)=>{setQuestion(e.target.value)}} className='w-full h-full p-3 outline-none' placeholder='Ask me...'/>
     <button onClick={handleQuestion} className='cursor-pointer'>Ask</button>
     </div>
   </div>
