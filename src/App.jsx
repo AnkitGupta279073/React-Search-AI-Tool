@@ -19,6 +19,12 @@ function App() {
     setRecentHistroy([]);
   }
 
+  const deleteHistoryItem = (itemToDelete) => {
+    const updatedHistory = recentHistroy.filter(item => item !== itemToDelete);
+    localStorage.setItem('histroy', JSON.stringify(updatedHistory));
+    setRecentHistroy(updatedHistory);
+  }
+
   useEffect(() => {
     if (messagesContainerRef.current) {
       messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
@@ -36,8 +42,18 @@ function App() {
     if (!currentQuestion.trim()) return;
     
     if(!historyItem && question.trim()){
-      localStorage.setItem('histroy', JSON.stringify([question,...(recentHistroy || [])]));
-      setRecentHistroy(JSON.parse(localStorage.getItem('histroy')));
+      // Trim extra spaces from the question
+      const trimmedQuestion = question.trim().replace(/\s+/g, ' ');
+      
+      // Remove duplicates (case-sensitive) using Set
+      const existingHistory = recentHistroy || [];
+      const filteredHistory = existingHistory.filter(item => item !== trimmedQuestion);
+      
+      // Add new question at the start and keep only 20 items
+      const updatedHistory = [trimmedQuestion, ...filteredHistory].slice(0, 20);
+      
+      localStorage.setItem('histroy', JSON.stringify(updatedHistory));
+      setRecentHistroy(updatedHistory);
     }
     setQuestion('');
     if (textareaRef.current) {
@@ -111,6 +127,7 @@ function App() {
         showSidebar={showSidebar}
         onSelectHistory={handleSelectedHistroy}
         onClearHistory={clearHistroy}
+        onDeleteItem={deleteHistoryItem}
       />
       <ChatArea 
         messages={messages}
