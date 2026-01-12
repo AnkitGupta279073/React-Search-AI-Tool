@@ -19,7 +19,7 @@ const RecentSearch = ({ recentHistroy, showSidebar, onSelectHistory, onClearHist
                             <li
                                 onClick={() => onSelectHistory(item)}
                                 key={index}
-                                className='px-5 py-2 mx-2 mb-2 truncate hover:bg-zinc-700 cursor-pointer text-zinc-400 hover:text-zinc-50 rounded-xl flex items-center justify-between'
+                                className='px-5 py-2 mx-2 truncate hover:bg-zinc-700 cursor-pointer text-zinc-400 hover:text-zinc-50 rounded-xl flex items-center justify-between'
                             >
                                 <span className='flex-1 truncate'>{item}</span>
                                 <button
